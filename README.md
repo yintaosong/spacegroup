@@ -101,7 +101,11 @@ First, let's look at change symmetry. Say, we want a P1 descrition of the NiTi l
     lattP1 = latt.rebase(L, O, ['x, y, z'])
     print(lattP1.all_sites_by_atom())
 
+<<<<<<< HEAD
 We get again 4 atoms per cell. Notice that because the two Ti sites are considered different, they have different labels now.
+=======
+We get again 4 atoms per cell.
+>>>>>>> 891c13a... init
 
     {'Ti': [Ti(Ti1) @ (0.372630, 0.000000, 0.542620), Ti(Ti2) @ (0.538950, 0.500000, 0.105660)], 'Ni': [Ni(Ni1) @ (0.000000, 0.000000, 0.000000), Ni(Ni2) @ (0.911580, 0.500000, 0.648280)]}
 
@@ -127,7 +131,11 @@ Again, export to CIF and check in VESTA
 
 ### Bonds
 
+<<<<<<< HEAD
 The reason that the main package is called `bonds` is that it can calculate all the shortes bonds (nearest neighbors) for each site in a multilattice.
+=======
+The reason that this package is called `bonds`, is that it can calculator all the shortes bonds (nearest neighbors) for each site in a multilattice.
+>>>>>>> 891c13a... init
 
     # define the coordination numbers for sites
     coords = dict()
@@ -182,4 +190,8 @@ It outputs
       Ti-Ni:  2.566964
       Ti-Ni:  2.603043
       Ti-Ni:  2.606943
+<<<<<<< HEAD
       Ti-Ni:  3.308537
+=======
+      Ti-Ni:  3.308537
+>>>>>>> 891c13a... init
