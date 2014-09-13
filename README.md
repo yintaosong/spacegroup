@@ -21,6 +21,7 @@ Let's generate a multilattice with P 2<sub>1</sub> space group, and two occupied
 
 Import the package first
 
+    from __future__ import absolute_import
     from bonds import *
     from bonds import MultiLattice as ML
 
@@ -101,11 +102,8 @@ First, let's look at change symmetry. Say, we want a P1 descrition of the NiTi l
     lattP1 = latt.rebase(L, O, ['x, y, z'])
     print(lattP1.all_sites_by_atom())
 
-<<<<<<< HEAD
+
 We get again 4 atoms per cell. Notice that because the two Ti sites are considered different, they have different labels now.
-=======
-We get again 4 atoms per cell.
->>>>>>> 891c13a... init
 
     {'Ti': [Ti(Ti1) @ (0.372630, 0.000000, 0.542620), Ti(Ti2) @ (0.538950, 0.500000, 0.105660)], 'Ni': [Ni(Ni1) @ (0.000000, 0.000000, 0.000000), Ni(Ni2) @ (0.911580, 0.500000, 0.648280)]}
 
@@ -131,12 +129,8 @@ Again, export to CIF and check in VESTA
 
 ### Bonds
 
-<<<<<<< HEAD
 The reason that the main package is called `bonds` is that it can calculate all the shortes bonds (nearest neighbors) for each site in a multilattice.
-=======
-The reason that this package is called `bonds`, is that it can calculator all the shortes bonds (nearest neighbors) for each site in a multilattice.
->>>>>>> 891c13a... init
-
+   
     # define the coordination numbers for sites
     coords = dict()
     coords[('Ti', 'Ti')] = coords[('Ni', 'Ni')] = 6
@@ -144,7 +138,7 @@ The reason that this package is called `bonds`, is that it can calculator all th
 
     envs = latt.all_local_envs(coords)
     for env in envs:
-        print(env.tostr())
+        print(env.tostr(show_vec=True))
 
 It outputs
 
@@ -152,46 +146,42 @@ It outputs
     =======================================
     Ni-Ti bonds:
     ------------
-      Ni-Ti:  2.513032
-      Ni-Ti:  2.513175
-      Ni-Ti:  2.513175
-      Ni-Ti:  2.566964
-      Ni-Ti:  2.566964
-      Ni-Ti:  2.603043
-      Ni-Ti:  2.606943
-      Ni-Ti:  3.308537
-
+      Ni-Ti:  2.513032,  ( 1.376,  0.000, -2.103)
+      Ni-Ti:  2.513175,  (-1.412, -2.022,  0.486)
+      Ni-Ti:  2.513175,  (-1.412,  2.022,  0.486)
+      Ni-Ti:  2.566964,  ( 1.506, -2.022,  0.486)
+      Ni-Ti:  2.566964,  ( 1.506,  2.022,  0.486)
+      Ni-Ti:  2.603043,  ( 0.744,  0.000,  2.494)
+      Ni-Ti:  2.606943,  (-1.541,  0.000, -2.103)
+      Ni-Ti:  3.308537,  (-2.174,  0.000,  2.494)
+      
     Ni-Ni bonds:
     ------------
-      Ni-Ni:  2.588816
-      Ni-Ni:  2.588816
-      Ni-Ni:  2.917600
-      Ni-Ni:  2.917600
-      Ni-Ni:  3.662494
-      Ni-Ni:  3.662494
+      Ni-Ni:  2.588816,  (-0.036, -2.022, -1.617)
+      Ni-Ni:  2.588816,  (-0.036,  2.022, -1.617)
+      Ni-Ni:  2.917600,  (-2.918,  0.000,  0.000)
+      Ni-Ni:  2.917600,  ( 2.918,  0.000,  0.000)
+      Ni-Ni:  3.662494,  (-0.668, -2.022,  2.980)
+      Ni-Ni:  3.662494,  (-0.668,  2.022,  2.980)
 
     "Ti" site at ( 0.083,  0.750,  0.282) :
     =======================================
     Ti-Ti bonds:
     ------------
-      Ti-Ti:  2.917600
-      Ti-Ti:  2.917600
-      Ti-Ti:  2.949806
-      Ti-Ti:  2.949806
-      Ti-Ti:  3.286712
-      Ti-Ti:  3.286712
+      Ti-Ti:  2.917600,  ( 2.918,  0.000,  0.000)
+      Ti-Ti:  2.917600,  (-2.918,  0.000,  0.000)
+      Ti-Ti:  2.949806,  (-0.762, -2.022,  2.009)
+      Ti-Ti:  2.949806,  (-0.762,  2.022,  2.009)
+      Ti-Ti:  3.286712,  (-0.129, -2.022, -2.588)
+      Ti-Ti:  3.286712,  (-0.129,  2.022, -2.588)
 
     Ti-Ni bonds:
     ------------
-      Ti-Ni:  2.513032
-      Ti-Ni:  2.513175
-      Ti-Ni:  2.513175
-      Ti-Ni:  2.566964
-      Ti-Ni:  2.566964
-      Ti-Ni:  2.603043
-      Ti-Ni:  2.606943
-<<<<<<< HEAD
-      Ti-Ni:  3.308537
-=======
-      Ti-Ni:  3.308537
->>>>>>> 891c13a... init
+      Ti-Ni:  2.513032,  ( 1.376,  0.000, -2.103)
+      Ti-Ni:  2.513175,  ( 1.412, -2.022, -0.486)
+      Ti-Ni:  2.513175,  ( 1.412,  2.022, -0.486)
+      Ti-Ni:  2.566964,  (-1.506, -2.022, -0.486)
+      Ti-Ni:  2.566964,  (-1.506,  2.022, -0.486)
+      Ti-Ni:  2.603043,  ( 0.744,  0.000,  2.494)
+      Ti-Ni:  2.606943,  (-1.541,  0.000, -2.103)
+      Ti-Ni:  3.308537,  (-2.174,  0.000,  2.494)
