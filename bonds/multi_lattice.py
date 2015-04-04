@@ -236,30 +236,49 @@ class MultiLattice(object):
                 output += str(site) + "\n"
         return output
     
-    def to_vesta_cif(self, phase_name='New structure', space_group="P 1", Int_Tbl=1):
+    def to_xmas_cri(self, phase_name='New structure', Int_Tbl=1):
         
+        output = '{:s}\n'.format(phase_name)
+        
+        M = self.base().T.dot(self.base())
+        a, b, c = np.sqrt([M[0, 0], M[1, 1], M[2, 2]])
+        alpha, beta, gamma = np.degrees(np.arccos([M[1, 2]/(b*c), M[0, 2]/(a*c), M[0, 1]/(a*b)]))
+
+        output += '{:d}\n'.format(Int_Tbl)
+
+        output += '{:.5f}   {:.5f}   {:.5f}   {:.5f}   {:.5f}   {:.5f}\n'.format(a, b, c, alpha, beta, gamma)
+
+        output += '{:2d}\n'.format(len(self.all_sites()))
+
+        for atom, sites in self.sites_by_atom().items():
+            for site in sites:
+                output += site.cri_record() + "\n"
+        return output
+
+    def to_vesta_cif(self, phase_name='New structure', space_group="P 1", Int_Tbl=1):
+
         output = \
         "#======================================================================\n\n" + \
         "# CRYSTAL DATA \n\n" + \
         "#----------------------------------------------------------------------\n\n" + \
         "data_VESTA_phase_1\n\n" + \
         "_pd_phase_name                         '{:s}'\n".format(phase_name)
-        
+
         M = self.base().T.dot(self.base())
         a, b, c = np.sqrt([M[0, 0], M[1, 1], M[2, 2]])
         alpha, beta, gamma = np.degrees(np.arccos([M[1, 2]/(b*c), M[0, 2]/(a*c), M[0, 1]/(a*b)]))
-        
+
         output += "_cell_length_a                         {:.5g}\n".format(a)
         output += "_cell_length_b                         {:.5g}\n".format(b)
         output += "_cell_length_c                         {:.5g}\n".format(c)
         output += "_cell_angle_alpha                      {:.5g}\n".format(alpha)
         output += "_cell_angle_beta                       {:.5g}\n".format(beta)
         output += "_cell_angle_gamma                      {:.5g}\n".format(gamma)
-        
+
         output += "_symmetry_space_group_name_H-M         '{:s}'\n".format(space_group)
         output += "_symmetry_Int_Tables_number            {:d}\n\n".format(Int_Tbl)
-#         
-#         
+#
+#
 #         _cell_length_a                         5.83514
 #         _cell_length_b                         4.04300
 #         _cell_length_c                         9.28064
@@ -267,9 +286,9 @@ class MultiLattice(object):
 #         _cell_angle_beta                       97.83205
 #         _cell_angle_gamma                      90
 #         output = "loop_\n_symmetry_equiv_pos_as_xyz\n"
-        
-        
-        
+
+
+
         output += "loop_\n_symmetry_equiv_pos_as_xyz\n"
         for sym in self._syms:
             output += "   '" + sym + "'\n"
@@ -281,8 +300,8 @@ class MultiLattice(object):
                    "   _atom_site_fract_z \n" + \
                    "   _atom_site_adp_type \n" + \
                    "   _atom_site_B_iso_or_equiv \n" + \
-                   "   _atom_site_type_symbol \n"         
+                   "   _atom_site_type_symbol \n"
         for atom, sites in self.sites_by_atom().items():
             for site in sites:
-                output += "   " + site.cif_record() + "\n"            
+                output += "   " + site.cif_record() + "\n"
         return output

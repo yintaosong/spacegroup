@@ -66,4 +66,11 @@ class Site(object):
         output += 'Biso 1.000000 '
         output += '{:3s}'.format(self._atom)
         return output
+
+    def cri_record(self):
+        output = '{:2s}{:3s}'.format(self._atom, self._label)
+        output += ' {:>9.6f} {:>9.6f} {:9.6f}'.format(*self._pos)
+        output += '  {:5.5f}'.format(self._ocpy)
+        output += '  {:3s}'.format(self._atom)
+        return output
     

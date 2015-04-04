@@ -9,7 +9,7 @@ E = a0*np.array([[0.5, -0.5, 0],
 
 # site = ["Na(Na001) @ (0, 0, 0)", "Cl(Cl001) @ (0.0, 0.5, 0.0)"]
 site_psn = [[0.0, 0.0, 0.0], [0, 0.5, 0.0]]
-sites = [Site("Na", site_psn[0]), Site("Cl", site_psn[1])]
+sites = [Site("Na", site_psn[0], '001'), Site("Cl", site_psn[1], '002')]
 sym = ('x, y, z',
    '-x, -y, -z',
    '-x, -y, z',
@@ -204,8 +204,11 @@ sym = ('x, y, z',
    'z+1/2, y+1/2, x')
 rocksalt = MultiLattice(4.8*np.eye(3), sites, sym)
 print(rocksalt.sites())
-print(rocksalt.all_sites_by_atom())
+print(rocksalt.all_sites())
 
 file = open("data/rock-salt.cif", 'w')
 file.write(rocksalt.to_vesta_cif("Rock Salt", "F m -3 m", 225))
+
+crysfile = open("data/rock-salt.cri",'w')
+crysfile.write(rocksalt.to_xmas_cri("Rock Salt", 225))
 
